@@ -1,14 +1,13 @@
 import "./buttons.js";
-import { score1, score2, highScore } from "./data.js";
-import { computed } from "./reactor.js";
+import { scores, highScore } from "./data.js";
 
 const p1 = document.querySelector("p.scores");
 const p2 = document.querySelector("p.high-score");
 
-computed(() => {
-  p1.textContent = `scores: ${score1.value}, ${score2.value}`;
+scores.subscribe((val) => {
+  p1.textContent = `scores: ${val.map((score) => score.value).join(", ")}`;
 });
 
 highScore.subscribe((val) => {
-  p2.textContent = `high score: ${highScore.value}`;
+  p2.textContent = `high score: ${val}`;
 });

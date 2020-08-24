@@ -1,7 +1,9 @@
-import { score1, score2 } from "./data.js";
+import { scores } from "./data.js";
+import { Reactor } from "./reactor.js";
 
-const b1 = document.querySelector("button.score-increase-1");
-b1.addEventListener("click", () => score1.value++);
-
-const b2 = document.querySelector("button.score-increase-2");
-b2.addEventListener("click", () => score2.value++);
+const b1 = document.querySelector("button.add-score");
+b1.addEventListener("click", () => {
+  const num = ~~(Math.random() * 100);
+  const score = new Reactor(num);
+  scores.value = [...scores.value, score];
+});
