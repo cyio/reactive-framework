@@ -1,13 +1,24 @@
-import "./buttons.js";
-import { scores, highScore } from "./data.js";
+import { Reactor, computed } from "./reactor.js";
+import { get, create } from "./framework.js";
 
-const p1 = document.querySelector("p.scores");
-const p2 = document.querySelector("p.high-score");
+const num1 = new Reactor(0);
+const num2 = new Reactor(0);
+const total = computed(() => num1.value + num2.value);
 
-scores.subscribe((val) => {
-  p1.textContent = `scores: ${val.map((score) => score.value).join(", ")}`;
-});
+const inputOptions = {
+  rejectOn: isNaN,
+  mutator: Number
+};
 
-highScore.subscribe((val) => {
-  p2.textContent = `high score: ${val}`;
-});
+const input1 = create("input").bind("value", num1, inputOptions);
+
+const input2 = create("input").bind("value", num2, inputOptions);
+
+const span = create("span").bind("textContent", total);
+
+get("body")
+  .append(input1)
+  .append(" + ")
+  .append(input2)
+  .append(" = ")
+  .append(span);

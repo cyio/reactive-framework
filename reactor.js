@@ -43,8 +43,5 @@ export class Reactor {
   subscribe(func) {
     this._subscribers.add(func);
     func(this._val);
-
-    // remove the subscriber
-    return () => this._subscribers.delete(func);
   }
 }
