@@ -1,7 +1,19 @@
-import { score1, score2 } from "./data.js";
+import { scores } from "./data.js";
+import { Reactor } from './reactor.js';
 
-const b1 = document.querySelector("button.score-increase-1");
-b1.addEventListener("click", () => score1.value++);
+const randInt = max => Math.floor(Math.random() * max);
 
-const b2 = document.querySelector("button.score-increase-2");
-b2.addEventListener("click", () => score2.value++);
+const b1 = document.querySelector("button.add-score");
+b1.addEventListener("click", () => {
+  const r = new Reactor(randInt(50));
+  scores.value = [...scores.value, r];
+});
+
+const b2 = document.querySelector("button.change-score");
+b2.addEventListener("click", () => {
+  const index = randInt(scores.value.length);
+  const randScore = scores.value[index];
+  console.log(`index ${index} was ${randScore.value}`);
+  randScore.value = randInt(50);
+  console.log(`changed to ${randScore.value}`);
+});
